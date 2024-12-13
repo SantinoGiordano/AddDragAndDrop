@@ -1,5 +1,5 @@
 "use client";
-import daisyui from "daisyui";
+// import daisyui from "daisyui";
 import { useEffect, useState } from "react";
 import {
   DndContext,
