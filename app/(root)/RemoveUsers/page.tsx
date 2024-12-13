@@ -9,6 +9,7 @@ import {
 } from "@dnd-kit/core";
 import { motion, useAnimation } from "framer-motion";
 import Icon from "@/app/componets/Icon";
+import Toast from "@/app/componets/Toast";
 
 interface Users {
   id: number;
@@ -19,6 +20,7 @@ interface Users {
 export default function RemoveUsers() {
   const [users, setUsers] = useState<Users[]>([]);
   const [loading, setLoading] = useState<boolean>(true); // Add loading state
+  const [toastVisible, setToastVisible] = useState(false);
 
   async function getUsers() {
     try {
@@ -42,12 +44,21 @@ export default function RemoveUsers() {
     if (over?.id === "trash") {
       const newUsers = users.filter((user) => user.id !== parseInt(active.id));
       setUsers(newUsers);
+  
+      // Show the toast
+      setToastVisible(true);
+  
+      // Hide the toast after a timeout (e.g., 3 seconds)
+      setTimeout(() => {
+        setToastVisible(false);
+      }, 3000);
     }
   };
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="flex justify-between space-x-10 min-h-screen bg-gray-100">
+        {toastVisible && <Toast message="Item deleted"/>}
         <ul className="space-y-3 w-2/3">
           {loading ? (
             <li className="text-left p-10 text-xl">
