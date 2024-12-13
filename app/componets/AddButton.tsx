@@ -10,8 +10,8 @@ interface Users {
 
 export default function AddButton() {
 
-
-
+    const [users, setUsers] = useState<Users[]>([])
+    
 
   function addUser() {
     const newUser = {
@@ -23,17 +23,17 @@ export default function AddButton() {
     setUsers([...users, newUser]);
 
   return (
-    <div>
-      <h1>Users List</h1>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            {user.name} (ID: {user.id}, Age: {user.age})
-          </li>
-        ))}
-      </ul>
-      <button onClick={addUser}>Add</button>
-    </div>
-  );
+        <div>
+        <h1>Users List</h1>
+        <ul>
+            {users.map((user) => (
+            <li key={user.id}>
+                {user.name} (ID: {user.id}, Age: {user.age})
+            </li>
+            ))}
+        </ul>
+        <button onClick={addUser}>Add</button>
+        </div>
+    );
+  }
 }
-
