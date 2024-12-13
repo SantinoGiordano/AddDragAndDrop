@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Users{
   id: number;
@@ -17,13 +17,18 @@ export default function Home() {
     try {
       const response = await fetch("http://localhost:3000/api/users");
       const json = await response.json();
-      setUsers(json.services || []);
+      setUsers(json.users || []);
       console.log({ json });
     } catch (error) {
       console.error(error);
       setUsers([]);
     }
   }
+
+  useEffect(() => {
+    getUsers();
+    console.log("Users after fetch:", users);
+  }, []);
 
   function addUser() {
     if (name && age) {
@@ -32,13 +37,10 @@ export default function Home() {
         name: name,
         age: parseInt(age)
       };
-
-    
-    // setUsers([...users, newUser]);  // Add new user to the list
-
-      // Clear input fields after adding user
+      setUsers([...users, newUser]);
       setName("");
       setAge("");
+      console.log(newUser)
     } else {
       alert("Please provide both name and age.");
     }
