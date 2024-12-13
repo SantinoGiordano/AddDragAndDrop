@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Toast from "@/app/componets/Toast";
 
 interface Users {
   id: number;
@@ -12,6 +13,7 @@ export default function AddUser() {
   const [users, setUsers] = useState<Users[]>([]);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
+  const [toastVisible, setToastVisible] = useState(false);
 
   async function getUsers() {
     try {
@@ -41,6 +43,12 @@ export default function AddUser() {
       setName("");
       setAge("");
       console.log(newUser);
+      setToastVisible(true);
+
+      // Hide the toast after 3 seconds
+      setTimeout(() => {
+        setToastVisible(false);
+      }, 3000);
     } else {
       alert("Please provide both name and age.");
     }
@@ -88,6 +96,7 @@ export default function AddUser() {
           Add User
         </button>
       </div>
+      {toastVisible && <Toast message={'User Added'} />}
     </div>
   );
 }
