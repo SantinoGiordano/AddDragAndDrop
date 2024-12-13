@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 
+interface Users{
+  id: number;
+  age: number;
+  name: string;
+}
+
 export default function Home() {
   // Initial users list
   const [users, setUsers] = useState<Users[]>([]);
