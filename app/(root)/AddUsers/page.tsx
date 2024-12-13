@@ -49,7 +49,9 @@ export default function AddUser() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-lg w-96 space-y-6 transform transition-transform hover:scale-105">
-        <h2 className="text-2xl font-semibold text-center text-gray-800">Add New User</h2>
+        <h2 className="text-2xl font-semibold text-center text-gray-800">
+          Add New User
+        </h2>
 
         {/* Display the users list */}
         <ul className="space-y-3">
