@@ -1,5 +1,5 @@
 "use client";
-import daisyui from "daisyui"
+import daisyui from "daisyui";
 import { useEffect, useState } from "react";
 import {
   DndContext,
@@ -18,8 +18,8 @@ interface Users {
 
 export default function RemoveUsers() {
   const [users, setUsers] = useState<Users[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);  // Add loading state
-  
+  const [loading, setLoading] = useState<boolean>(true); // Add loading state
+
   async function getUsers() {
     try {
       const response = await fetch("http://localhost:3000/api/users");
@@ -29,7 +29,7 @@ export default function RemoveUsers() {
       console.error(error);
       setUsers([]);
     } finally {
-      setLoading(false);  // Set loading to false after fetch
+      setLoading(false); // Set loading to false after fetch
     }
   }
 
@@ -50,7 +50,9 @@ export default function RemoveUsers() {
       <div className="flex justify-between space-x-10 min-h-screen bg-gray-100">
         <ul className="space-y-3 w-2/3">
           {loading ? (
-            <li className="text-center text-xl">Loading...</li>
+            <li className="text-left p-10 text-xl">
+              <span className="loading loading-spinner loading-lg"></span>
+            </li>
           ) : (
             users.map((user) => (
               <li key={user.id}>
@@ -59,8 +61,6 @@ export default function RemoveUsers() {
             ))
           )}
         </ul>
-
-        {/* Droppable trash area */}
         <DroppableTrash />
       </div>
     </DndContext>
