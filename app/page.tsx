@@ -9,23 +9,28 @@ interface Users{
 }
 
 export default function Home() {
-  // Initial users list
   const [users, setUsers] = useState<Users[]>([]);
-
-  // State to track the input values
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
 
-  // Function to handle adding a new user
+  async function getUsers(){
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
   function addUser() {
     if (name && age) {
       const newUser = {
-        id: users.length + 1,  // Generate the new user ID
+        id: users.length + 1,  
         name: name,
-        age: parseInt(age) // Convert the age to a number
+        age: parseInt(age)
       };
 
-      setUsers([...users, newUser]);  // Add new user to the list
+    
+    setUsers([...users, newUser]);  // Add new user to the list
 
       // Clear input fields after adding user
       setName("");
@@ -39,16 +44,15 @@ export default function Home() {
     <div>
       <h1>Users List</h1>
       
-      {/* Display the users list */}
       <ul>
         {users.map((user) => (
           <li key={user.id}>
-            {user.name} (ID: {user.id}, Age: {user.age})
+            {user.name}, Age: {user.age}
           </li>
         ))}
       </ul>
 
-      {/* Input fields for name and age */}
+      
       <div>
         <input
           type="text"
@@ -64,7 +68,7 @@ export default function Home() {
         />
       </div>
 
-      {/* Button to add the new user */}
+      
       <button onClick={addUser}>Add</button>
     </div>
   );
