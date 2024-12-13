@@ -15,9 +15,13 @@ export default function Home() {
 
   async function getUsers(){
     try {
-      
+      const response = await fetch("http://localhost:3000/api/users");
+      const json = await response.json();
+      setUsers(json.services || []);
+      console.log({ json });
     } catch (error) {
-      
+      console.error(error);
+      setUsers([]);
     }
   }
 
@@ -30,7 +34,7 @@ export default function Home() {
       };
 
     
-    setUsers([...users, newUser]);  // Add new user to the list
+    // setUsers([...users, newUser]);  // Add new user to the list
 
       // Clear input fields after adding user
       setName("");
