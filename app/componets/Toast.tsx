@@ -1,9 +1,13 @@
-export default function Toast(props:string) {
+const Toast = ({ message }: { message: string }) => {
   return (
-    <div className="toast">
-      <div className="alert alert-info">
-        <span>{props}</span>
+    <>
+      <div className="toast">
+        <div className="alert alert-info  bg-red-500 rounded-none text-white">
+          <span>{message}.</span>
+        </div>
       </div>
-    </div>
+    </>
   );
-}
+};
+
+export default Toast;
