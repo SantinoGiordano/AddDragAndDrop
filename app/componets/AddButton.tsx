@@ -5,7 +5,7 @@ import { useState } from "react";
 interface Users {
     id: number;
     name: string;
-    age: Number;
+    age: number;
   }
 
 export default function AddButton() {
@@ -32,7 +32,7 @@ export default function AddButton() {
             </li>
             ))}
         </ul>
-        <button onClick={addUser}>Add</button>
+        <button onClick={()=> addUser()}>Add</button>
         </div>
     );
   }
