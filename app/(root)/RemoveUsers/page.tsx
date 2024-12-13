@@ -1,12 +1,11 @@
 "use client";
-
+import 
 import { useEffect, useState } from "react";
 import {
   DndContext,
   useDraggable,
   useDroppable,
   DragEndEvent,
-  DragStartEvent,
 } from "@dnd-kit/core";
 import { motion, useAnimation } from "framer-motion";
 import Icon from "@/app/componets/Icon";
@@ -19,8 +18,8 @@ interface Users {
 
 export default function RemoveUsers() {
   const [users, setUsers] = useState<Users[]>([]);
-
-  // Fetch users
+  const [loading, setLoading] = useState<boolean>(true);  // Add loading state
+  
   async function getUsers() {
     try {
       const response = await fetch("http://localhost:3000/api/users");
@@ -29,6 +28,8 @@ export default function RemoveUsers() {
     } catch (error) {
       console.error(error);
       setUsers([]);
+    } finally {
+      setLoading(false);  // Set loading to false after fetch
     }
   }
 
@@ -47,13 +48,16 @@ export default function RemoveUsers() {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="flex justify-between space-x-10 min-h-screen bg-gray-100">
-        {/* Draggable users */}
         <ul className="space-y-3 w-2/3">
-          {users.map((user) => (
-            <li key={user.id}>
-              <DraggableItem user={user} />
-            </li>
-          ))}
+          {loading ? (
+            <li className="text-center text-xl">Loading...</li>
+          ) : (
+            users.map((user) => (
+              <li key={user.id}>
+                <DraggableItem user={user} />
+              </li>
+            ))
+          )}
         </ul>
 
         {/* Droppable trash area */}
@@ -118,13 +122,16 @@ function DroppableTrash() {
   });
 
   return (
-    <div className="pr-10">
-      <div
-        ref={setNodeRef}
-        className="p-10 mt-5 bg-red-500 text-white text-center rounded-md shadow-lg w-44 mx-auto"
-      >
-        <Icon/>
+    <>
+      <hr />
+      <div className="pr-10">
+        <div
+          ref={setNodeRef}
+          className="p-10 mt-5 bg-red-500 text-white text-center rounded-md shadow-lg w-44 mx-auto"
+        >
+          <Icon />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

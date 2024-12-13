@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Nav() {
   return (
-    <nav className="bg-blue-600 text-white p-4 shadow-lg">
+    <nav className="bg-blue-600 text-white p-10 shadow-lg">
       <div className="flex justify-center space-x-8">
         <Link
           href={"/"}

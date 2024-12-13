@@ -1,4 +1,3 @@
-import Icon from "../componets/Icon";
 
 export default function Home(){
     return(
