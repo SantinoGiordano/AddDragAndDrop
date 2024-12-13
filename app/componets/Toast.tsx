@@ -1,8 +1,8 @@
-export default function Toast() {
+export default function Toast(props:string) {
   return (
     <div className="toast">
       <div className="alert alert-info">
-        <span>New message arrived.</span>
+        <span>{props}</span>
       </div>
     </div>
   );
