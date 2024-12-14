@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Toast from "@/app/componets/Toast";
+import { button } from "framer-motion/client";
 
 interface Users {
   id: number;
@@ -14,24 +15,28 @@ export default function AddUser() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
+  const [loading, setLoading] = useState(true); // Added loading state
 
+  // Fetch users from API
   async function getUsers() {
     try {
       const response = await fetch("http://localhost:3000/api/users");
       const json = await response.json();
       setUsers(json.users || []);
-      console.log({ json });
     } catch (error) {
       console.error(error);
       setUsers([]);
+    } finally {
+      setLoading(false); // Set loading to false after data is fetched
     }
   }
 
+  // Fetch users when the component mounts
   useEffect(() => {
     getUsers();
-    console.log("Users after fetch:", users);
   }, []);
 
+  // Add new user to the list
   function addUser() {
     if (name && age) {
       const newUser = {
@@ -42,7 +47,6 @@ export default function AddUser() {
       setUsers([...users, newUser]);
       setName("");
       setAge("");
-      console.log(newUser);
       setToastVisible(true);
 
       // Hide the toast after 3 seconds
@@ -61,13 +65,21 @@ export default function AddUser() {
           Add New User
         </h2>
 
-        {/* Display the users list */}
+        {/* Display users list or loading spinner */}
         <ul className="space-y-3">
-          {users.map((user) => (
-            <li key={user.id} className="text-gray-700">
-              {user.name} ( Age: {user.age})
+          {loading ? (
+            // Show the spinner while loading
+            <li className="text-left p-10 text-xl flex justify-center items-center">
+              <span className="loading loading-spinner loading-lg"></span>
             </li>
-          ))}
+          ) : (
+            // Show the user list when data is fetched
+            users.map((user) => (
+              <li key={user.id} className="text-gray-700">
+                {user.name} (Age: {user.age})
+              </li>
+            ))
+          )}
         </ul>
 
         {/* Input fields for name and age */}
@@ -87,16 +99,15 @@ export default function AddUser() {
             className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-
-        {/* Add Button */}
-        <button
-          onClick={addUser}
-          className="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
-        >
-          Add User
+        <button 
+        onClick={addUser}
+        className=" w-full btn btn-outline btn-success"
+        >Success
         </button>
       </div>
-      {toastVisible && <Toast message={'User Added'} />}
+
+      {/* Toast Notification */}
+      {toastVisible && <Toast message={"User Added"} />}
     </div>
   );
 }
