@@ -18,9 +18,10 @@ export default function AddUser() {
   const [loading, setLoading] = useState(true); // Added loading state
 
   // Fetch users from API
-  async function getUsers() {
+  async function getUsers(){
     try {
-      const response = await fetch("http://localhost:3000/api/usersAdd");
+      const response = await fetch("/api/users");
+      console.log(users)
       const json = await response.json();
       setUsers(json.users || []);
     } catch (error) {
