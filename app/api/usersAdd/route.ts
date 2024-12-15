@@ -18,12 +18,14 @@
 //       });
 //     };
 
+import dbConnect from "@/app/lib/dbConnect";
 import db from "@/lib/db";
-import User from "@/models/User";
+import User from "@/app/models/User";
 
 export async function POST(req) {
-  await db.connect();
-
+ 
+  // await db.connect();
+  await dbConnect();
   try {
     const body = await req.json();
     const newUser = User.create(body);
