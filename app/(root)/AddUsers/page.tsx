@@ -20,7 +20,7 @@ export default function AddUser() {
   // Fetch users from API
   async function getUsers() {
     try {
-      const response = await fetch("http://localhost:3000/api/users");
+      const response = await fetch("http://localhost:3000/api/usersAdd");
       const json = await response.json();
       setUsers(json.users || []);
     } catch (error) {
@@ -102,7 +102,8 @@ export default function AddUser() {
         <button 
         onClick={addUser}
         className=" w-full btn btn-outline btn-success"
-        >Success
+        >
+        Add
         </button>
       </div>
 
