@@ -24,7 +24,7 @@ export default function RemoveUsers() {
 
   async function getUsers() {
     try {
-      const response = await fetch("http://localhost:3000/api/usersRemove");
+      const response = await fetch("/api/users");
       const json = await response.json();
       setUsers(json.users || []);
     } catch (error) {
